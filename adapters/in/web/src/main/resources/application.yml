@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: web-novel-service
+  profiles:
+    include:
+      - persistence-database
+
