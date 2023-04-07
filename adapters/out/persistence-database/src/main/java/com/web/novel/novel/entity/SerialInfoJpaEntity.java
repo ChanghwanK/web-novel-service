@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.ObjectUtils;
 
+@Getter
 @Embeddable
 public class SerialInfoJpaEntity {
 

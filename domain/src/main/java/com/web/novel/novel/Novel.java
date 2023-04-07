@@ -2,7 +2,6 @@ package com.web.novel.novel;
 
 import com.web.novel.exception.TagSizeInvalidException;
 import com.web.novel.novel.chapter.Chapter;
-import com.web.novel.novel.chapter.Synopsis;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Value;

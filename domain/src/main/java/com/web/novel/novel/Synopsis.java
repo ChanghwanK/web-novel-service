@@ -1,4 +1,4 @@
-package com.web.novel.novel.chapter;
+package com.web.novel.novel;
 
 import com.web.novel.exception.SynopsisWordSizeOverException;
 import lombok.Value;

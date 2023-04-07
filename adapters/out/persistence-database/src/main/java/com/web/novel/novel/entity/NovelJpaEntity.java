@@ -68,7 +68,6 @@ public class NovelJpaEntity extends BaseEntity {
         OPEN, DELETE;
     }
 
-
     public NovelJpaEntity(
             final String title,
             final String coverImageUrl,

@@ -9,6 +9,7 @@ import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.entity.NovelJpaEntity;
 import com.web.novel.novel.mapper.NovelMapper;
 import com.web.novel.novel.port.out.NovelDeletePort;
+import com.web.novel.novel.port.out.NovelLoadPort;
 import com.web.novel.novel.port.out.NovelRegisterPort;
 import com.web.novel.novel.repository.GenreRepository;
 import com.web.novel.novel.repository.NovelRepository;
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @PersistenceAdapter
-public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDeletePort {
+public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDeletePort, NovelLoadPort {
 
     private final NovelMapper novelMapper;
     private final NovelRepository novelRepository;
@@ -43,6 +44,14 @@ public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDelet
         novelRepository.findById(id)
             .map(NovelJpaEntity::delete)
             .map(novelRepository::save)
+            .orElseThrow(() -> new NovelNotFoundException(id));
+    }
+
+    @Override
+    public Novel getById(NovelId novelId) {
+        var id = novelId.getValue();
+        return novelRepository.findById(id)
+            .map(novelMapper::mapToDomain)
             .orElseThrow(() -> new NovelNotFoundException(id));
     }
 }

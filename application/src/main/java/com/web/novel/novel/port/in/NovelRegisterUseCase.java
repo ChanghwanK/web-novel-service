@@ -5,7 +5,7 @@ import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.NovelMetaInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Tag;
-import com.web.novel.novel.chapter.Synopsis;
+import com.web.novel.novel.Synopsis;
 import java.util.List;
 import lombok.Value;
 

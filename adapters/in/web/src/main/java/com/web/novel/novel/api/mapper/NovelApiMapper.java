@@ -8,7 +8,7 @@ import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Tag;
 import com.web.novel.novel.api.dto.NovelRegisterRequestDto;
 import com.web.novel.novel.api.dto.NovelRegisterRequestDto.TagRegisterRequest;
-import com.web.novel.novel.chapter.Synopsis;
+import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.port.in.NovelDeleteUseCase;
 import com.web.novel.novel.port.in.NovelDeleteUseCase.Command;
 import com.web.novel.novel.port.in.NovelRegisterUseCase;
