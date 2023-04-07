@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@org.springframework.stereotype.Component
+@Component
 public @interface UseCase {
     @AliasFor(annotation = Component.class)
     String value() default "";

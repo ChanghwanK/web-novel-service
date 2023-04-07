@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -44,6 +46,10 @@ public class NovelJpaEntity extends BaseEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String synopsis;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
     @Embedded
     private SerialInfoJpaEntity serialInfoJpaEntity;
 
@@ -57,6 +63,11 @@ public class NovelJpaEntity extends BaseEntity {
     private final List<TagJpaEntity> tags = new ArrayList<>();
 
     protected NovelJpaEntity() { }
+
+    private enum Status {
+        OPEN, DELETE;
+    }
+
 
     public NovelJpaEntity(
             final String title,
@@ -73,6 +84,7 @@ public class NovelJpaEntity extends BaseEntity {
         this.coverImageUrl = coverImageUrl;
         this.authorNickName = authorNickName;
         this.serialInfoJpaEntity = serialInfoJpaEntity;
+        this.status = Status.OPEN;
         this.synopsis = synopsis;
         this.genreId = genreId;
         this.memberId = memberId;
@@ -106,4 +118,8 @@ public class NovelJpaEntity extends BaseEntity {
         for(var tag : tagJpaEntities) tag.setNovelJpaEntity(this);
     }
 
+    public NovelJpaEntity delete() {
+        this.status = Status.DELETE;
+        return this;
+    }
 }

@@ -3,8 +3,12 @@ package com.web.novel.novel;
 import com.web.novel.annotations.PersistenceAdapter;
 import com.web.novel.exception.GenreNotFoundException;
 import com.web.novel.exception.MemberNotFoundException;
+import com.web.novel.exception.NovelNotFoundException;
 import com.web.novel.member.repository.MemberRepository;
+import com.web.novel.novel.Novel.NovelId;
+import com.web.novel.novel.entity.NovelJpaEntity;
 import com.web.novel.novel.mapper.NovelMapper;
+import com.web.novel.novel.port.out.NovelDeletePort;
 import com.web.novel.novel.port.out.NovelRegisterPort;
 import com.web.novel.novel.repository.GenreRepository;
 import com.web.novel.novel.repository.NovelRepository;
@@ -12,15 +16,15 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @PersistenceAdapter
-public class NovelJpaPersistenceAdapter implements NovelRegisterPort {
+public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDeletePort {
 
     private final NovelMapper novelMapper;
-    private final NovelRepository repository;
+    private final NovelRepository novelRepository;
     private final GenreRepository genreRepository;
     private final MemberRepository memberRepository;
 
     @Override
-    public void store(Novel novel) {
+    public void store(final Novel novel) {
         var genreId = novel.getGenre().getGenreId().getValue();
         var authorId = novel.getAuthorInfo().getAuthorId().getValue();
 
@@ -30,6 +34,15 @@ public class NovelJpaPersistenceAdapter implements NovelRegisterPort {
         var memberJpaEntity = memberRepository.findById(authorId)
             .orElseThrow(() -> new MemberNotFoundException(authorId));
 
-        repository.save(novelMapper.mapToJpaEntity(novel, memberJpaEntity.getNickName(), genreJpaEntity.getId()));
+        novelRepository.save(novelMapper.mapToJpaEntity(novel, memberJpaEntity.getNickName(), genreJpaEntity.getId()));
+    }
+
+    @Override
+    public void deleteById(final NovelId novelId) {
+        Long id = novelId.getValue();
+        novelRepository.findById(id)
+            .map(NovelJpaEntity::delete)
+            .map(novelRepository::save)
+            .orElseThrow(() -> new NovelNotFoundException(id));
     }
 }

@@ -29,6 +29,6 @@ public class MemberApiController {
             @RequestBody @Valid MemberRegisterRequestDto dto) {
         var command = requestMapper.toCommand(dto);
         memberRegisterUseCase.command(command);
-        return CommonResponse.DEFAULT;
+        return CommonResponse.SUCCESS_DEFAULT;
     }
 }
