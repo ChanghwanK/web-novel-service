@@ -31,6 +31,6 @@ public class MemberRegister implements MemberRegisterUseCase {
         memberLoadPort.checkDuplicatedEmail(email);
         memberLoadPort.checkDuplicatedNickName(nickName);
 
-        memberPersistencePort.registerMember(new Member(email, nickName));
+        memberPersistencePort.registerMember(Member.initMember(email, nickName));
     }
 }
