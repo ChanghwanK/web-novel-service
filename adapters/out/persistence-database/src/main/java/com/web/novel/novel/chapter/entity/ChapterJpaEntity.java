@@ -1,5 +1,6 @@
 package com.web.novel.novel.chapter.entity;
 
+import com.web.novel.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "chapters")
-public class ChapterJpaEntity {
+public class ChapterJpaEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,8 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface ChapterRepository extends JpaRepository<ChapterJpaEntity, Long> {
 
     @Query(value = "select * from chapters c" +
-        " order by c.id desc" +
+        " order by c.ordering desc" +
         " limit 1", nativeQuery = true)
     Optional<ChapterJpaEntity> findChapterOrderByIdLimitOne();
-
 }

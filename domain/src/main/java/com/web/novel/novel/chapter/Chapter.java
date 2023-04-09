@@ -1,5 +1,6 @@
 package com.web.novel.novel.chapter;
 
+import com.web.novel.novel.Novel.NovelId;
 import lombok.Value;
 
 public class Chapter {
@@ -65,11 +66,6 @@ public class Chapter {
 
     @Value
     public static class ChapterId {
-        Long value;
-    }
-
-    @Value
-    public static class NovelId {
         Long value;
     }
 }

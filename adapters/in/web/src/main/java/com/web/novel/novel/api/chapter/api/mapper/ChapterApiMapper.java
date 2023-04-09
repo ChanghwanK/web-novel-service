@@ -1,8 +1,8 @@
 package com.web.novel.novel.api.chapter.api.mapper;
 
+import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.api.chapter.api.dto.ChapterRegisterRequestDto;
 import com.web.novel.novel.chapter.AuthorTalk;
-import com.web.novel.novel.chapter.Chapter.NovelId;
 import com.web.novel.novel.chapter.ChapterContent;
 import com.web.novel.novel.chapter.ChapterTitle;
 import com.web.novel.novel.chapter.port.in.ChapterRegisterUseCase;

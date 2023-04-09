@@ -39,19 +39,18 @@ public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDelet
     }
 
     @Override
+    public Novel getById(Long novelId) {
+        return novelRepository.findById(novelId)
+            .map(novelMapper::mapToDomain)
+            .orElseThrow(() -> new NovelNotFoundException(novelId));
+    }
+
+    @Override
     public void deleteById(final NovelId novelId) {
         Long id = novelId.getValue();
         novelRepository.findById(id)
             .map(NovelJpaEntity::delete)
             .map(novelRepository::save)
-            .orElseThrow(() -> new NovelNotFoundException(id));
-    }
-
-    @Override
-    public Novel getById(NovelId novelId) {
-        var id = novelId.getValue();
-        return novelRepository.findById(id)
-            .map(novelMapper::mapToDomain)
             .orElseThrow(() -> new NovelNotFoundException(id));
     }
 }

@@ -9,6 +9,7 @@ import com.web.novel.novel.NovelMetaInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
+import com.web.novel.novel.chapter.entity.ChapterJpaEntity;
 import com.web.novel.novel.entity.NovelJpaEntity;
 import com.web.novel.novel.entity.SerialInfoJpaEntity;
 import com.web.novel.novel.entity.TagJpaEntity;
@@ -35,6 +36,15 @@ public class NovelMapper {
     }
 
     public Novel mapToDomain(final NovelJpaEntity novelJpaEntity) {
+        return new Novel(
+            new NovelMetaInfo(novelJpaEntity.getTitle(), novelJpaEntity.getCoverImageUrl()),
+            Genre.init(new GenreId(novelJpaEntity.getGenreId())),
+            fromJpaEntity(novelJpaEntity.getSerialInfoJpaEntity()),
+            new Synopsis(novelJpaEntity.getSynopsis()),
+            AuthorInfo.init(new AuthorId(novelJpaEntity.getMemberId())));
+    }
+
+    public Novel mapToDomainWithChapter(final NovelJpaEntity novelJpaEntity, ChapterJpaEntity chapterJpaEntity) {
         return new Novel(
             new NovelMetaInfo(novelJpaEntity.getTitle(), novelJpaEntity.getCoverImageUrl()),
             Genre.init(new GenreId(novelJpaEntity.getGenreId())),

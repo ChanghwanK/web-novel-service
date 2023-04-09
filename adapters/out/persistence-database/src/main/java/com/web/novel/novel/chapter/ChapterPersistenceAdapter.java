@@ -1,15 +1,18 @@
 package com.web.novel.novel.chapter;
 
 import com.web.novel.annotations.PersistenceAdapter;
+import com.web.novel.exception.CanNotRegisterFavoriteNovelException;
 import com.web.novel.exception.NovelNotFoundException;
+import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.chapter.entity.ChapterJpaEntity;
 import com.web.novel.novel.chapter.mapper.ChapterMapper;
+import com.web.novel.novel.chapter.port.out.ChapterLoadPort;
 import com.web.novel.novel.chapter.port.out.ChapterRegisterPort;
 import com.web.novel.novel.chapter.repository.ChapterRepository;
 import com.web.novel.novel.repository.NovelRepository;
 
 @PersistenceAdapter
-public class ChapterPersistenceAdapter implements ChapterRegisterPort {
+public class ChapterPersistenceAdapter implements ChapterRegisterPort, ChapterLoadPort {
 
     private final ChapterMapper chapterMapper;
     private final ChapterRepository chapterRepository;
@@ -37,5 +40,12 @@ public class ChapterPersistenceAdapter implements ChapterRegisterPort {
 
         ChapterJpaEntity chapterJpaEntity = chapterMapper.mapToJpaEntity(chapter, ordering);
         chapterRepository.save(chapterJpaEntity);
+    }
+
+    @Override
+    public Chapter getLastUploadedChapterByNovelId(NovelId novelId) {
+        return chapterRepository.findChapterOrderByIdLimitOne()
+            .map(chapterMapper::mapToDomain)
+            .orElseThrow(CanNotRegisterFavoriteNovelException::new);
     }
 }
