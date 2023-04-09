@@ -1,0 +1,38 @@
+*2
+$6
+SELECT
+$1
+0
+*3
+$3
+SET
+$15
+com.novel.web:1
+$218
+{"novelTitle":"test 작품입니다.","lastUploadedChapterInfo":{"chapterTitle":"chapter 등록 테스트","uploadedAt":"2023-04-09"},"lastUploadedAt":"2023-04-09","lastUploadedChapterTitle":"chapter 등록 테스트"}
+*3
+$3
+SET
+$15
+com.novel.web:1
+$218
+{"novelTitle":"test 작품입니다.","lastUploadedChapterInfo":{"chapterTitle":"chapter 등록 테스트","uploadedAt":"2023-04-09"},"lastUploadedAt":"2023-04-09","lastUploadedChapterTitle":"chapter 등록 테스트"}
+*2
+$3
+del
+$15
+com.novel.web:1
+*3
+$3
+SET
+$15
+com.novel.web:1
+$218
+{"novelTitle":"test 작품입니다.","lastUploadedChapterInfo":{"chapterTitle":"chapter 등록 테스트","uploadedAt":"2023-04-09"},"lastUploadedChapterTitle":"chapter 등록 테스트","lastUploadedAt":"2023-04-09"}
+*3
+$3
+SET
+$15
+com.novel.web:1
+$218
+{"novelTitle":"test 작품입니다.","lastUploadedChapterInfo":{"chapterTitle":"chapter 등록 테스트","uploadedAt":"2023-04-09"},"lastUploadedChapterTitle":"chapter 등록 테스트","lastUploadedAt":"2023-04-09"}

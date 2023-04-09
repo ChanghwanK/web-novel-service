@@ -13,6 +13,7 @@ public class Chapter {
     private final AuthorTalk authorTalk; // 작가의 말
     private Ordering ordering;
     private final NovelId novelId;
+    private String lastUpdatedAt;
 
     public Chapter(
             final ChapterTitle title,
@@ -31,13 +32,15 @@ public class Chapter {
             final ChapterContent content,
             final AuthorTalk authorTalk,
             final NovelId novelId,
-            final Ordering ordering) {
+            final Ordering ordering,
+            final String lastUpdatedAt) {
         this.chapterId = chapterId;
         this.title = title;
         this.content = content;
         this.authorTalk = authorTalk;
         this.novelId = novelId;
         this.ordering = ordering;
+        this.lastUpdatedAt = lastUpdatedAt;
     }
 
     public ChapterTitle getTitle() {
@@ -62,6 +65,10 @@ public class Chapter {
 
     public Ordering getOrdering() {
         return ordering;
+    }
+
+    public String getLastUpdatedAt() {
+        return lastUpdatedAt;
     }
 
     @Value

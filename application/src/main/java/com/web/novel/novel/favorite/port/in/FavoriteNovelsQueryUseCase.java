@@ -17,7 +17,7 @@ public interface FavoriteNovelsQueryUseCase {
     class Result {
         String novelTitle;
         String lastUploadedChapterTile;
-        String lastUploadedChapterOrder;
+        String lastUploadedAt;
     }
 
 }

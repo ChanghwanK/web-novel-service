@@ -4,4 +4,6 @@ include 'domain'
 include 'adapters:out:persistence-database'
 include 'adapters:in:web'
 include 'common'
+include 'adapters:out:persistence-in-memory'
+findProject(':adapters:out:persistence-in-memory')?.name = 'persistence-in-memory'
 

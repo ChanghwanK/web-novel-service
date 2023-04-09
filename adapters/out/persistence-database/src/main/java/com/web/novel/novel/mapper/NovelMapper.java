@@ -5,6 +5,7 @@ import com.web.novel.novel.AuthorInfo.AuthorId;
 import com.web.novel.novel.Genre;
 import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.Novel;
+import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.NovelMetaInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
@@ -37,6 +38,7 @@ public class NovelMapper {
 
     public Novel mapToDomain(final NovelJpaEntity novelJpaEntity) {
         return new Novel(
+            new NovelId(novelJpaEntity.getId()),
             new NovelMetaInfo(novelJpaEntity.getTitle(), novelJpaEntity.getCoverImageUrl()),
             Genre.init(new GenreId(novelJpaEntity.getGenreId())),
             fromJpaEntity(novelJpaEntity.getSerialInfoJpaEntity()),
