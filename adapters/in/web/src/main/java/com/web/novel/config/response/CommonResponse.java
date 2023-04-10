@@ -1,6 +1,5 @@
 package com.web.novel.config.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommonResponse <T> {
-    public static final CommonResponse<Void> DEFAULT = new CommonResponse<>(Result.SUCCESS, null);
+    public static final CommonResponse<Void> SUCCESS_DEFAULT = new CommonResponse<>(Result.SUCCESS, null);
 
     private Result result;
     private T data;

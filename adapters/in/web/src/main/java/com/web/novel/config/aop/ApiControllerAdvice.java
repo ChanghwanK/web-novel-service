@@ -26,10 +26,10 @@ public class ApiControllerAdvice {
      *  400
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(BaseException.class)
     ErrorResponse handleException(BaseException e) {
         log.error("", e);
-        return ErrorResponse.BAD_REQUEST;
+        return ErrorResponse.of(e.getMessage());
     }
 
     /**

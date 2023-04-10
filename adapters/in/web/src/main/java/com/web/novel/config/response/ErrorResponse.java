@@ -18,6 +18,10 @@ public class ErrorResponse {
         this.message = message;
     }
 
+    public static ErrorResponse of(String message) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), message);
+    }
+
     private static ErrorResponse toErrorResponseDto(final HttpStatus httpStatus) {
         return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
     }
