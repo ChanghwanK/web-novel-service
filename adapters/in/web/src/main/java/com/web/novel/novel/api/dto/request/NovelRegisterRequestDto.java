@@ -1,4 +1,4 @@
-package com.web.novel.novel.api.dto;
+package com.web.novel.novel.api.dto.request;
 
 import java.util.List;
 import lombok.Getter;

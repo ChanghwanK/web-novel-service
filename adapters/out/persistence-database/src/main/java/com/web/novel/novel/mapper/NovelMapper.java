@@ -1,7 +1,6 @@
 package com.web.novel.novel.mapper;
 
 import com.web.novel.novel.AuthorInfo;
-import com.web.novel.novel.AuthorInfo.AuthorId;
 import com.web.novel.novel.Genre;
 import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.Novel;
@@ -10,7 +9,7 @@ import com.web.novel.novel.NovelMetaInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
-import com.web.novel.novel.chapter.entity.ChapterJpaEntity;
+import com.web.novel.novel.entity.GenreJpaEntity;
 import com.web.novel.novel.entity.NovelJpaEntity;
 import com.web.novel.novel.entity.SerialInfoJpaEntity;
 import com.web.novel.novel.entity.TagJpaEntity;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NovelMapper {
+
     public NovelJpaEntity mapToJpaEntity(
             final Novel novel,
             final String authorNickName,
@@ -36,27 +36,31 @@ public class NovelMapper {
         return initNovelJpaEntity;
     }
 
-    public Novel mapToDomain(final NovelJpaEntity novelJpaEntity) {
-        return new Novel(
+    public Novel mapToDomainWithGenre(final NovelJpaEntity novelJpaEntity, final GenreJpaEntity genreJpaEntity) {
+        var novel = new Novel(
             new NovelId(novelJpaEntity.getId()),
             new NovelMetaInfo(novelJpaEntity.getTitle(), novelJpaEntity.getCoverImageUrl()),
-            Genre.init(new GenreId(novelJpaEntity.getGenreId())),
-            fromJpaEntity(novelJpaEntity.getSerialInfoJpaEntity()),
+            new Genre(new GenreId(genreJpaEntity.getId()), genreJpaEntity.getName()),
+            mapToSerialInfoFromJpaEntity(novelJpaEntity.getSerialInfoJpaEntity()),
             new Synopsis(novelJpaEntity.getSynopsis()),
-            AuthorInfo.init(new AuthorId(novelJpaEntity.getMemberId())));
+            new AuthorInfo(novelJpaEntity.getAuthorNickName()));
+
+        var tags = novelJpaEntity.getTags().stream()
+            .map(this::mapToTagDomain)
+            .collect(Collectors.toList());
+
+        novel.addTags(tags);
+        return novel;
     }
 
-    public Novel mapToDomainWithChapter(final NovelJpaEntity novelJpaEntity, ChapterJpaEntity chapterJpaEntity) {
-        return new Novel(
-            new NovelMetaInfo(novelJpaEntity.getTitle(), novelJpaEntity.getCoverImageUrl()),
-            Genre.init(new GenreId(novelJpaEntity.getGenreId())),
-            fromJpaEntity(novelJpaEntity.getSerialInfoJpaEntity()),
-            new Synopsis(novelJpaEntity.getSynopsis()),
-            AuthorInfo.init(new AuthorId(novelJpaEntity.getMemberId())));
+    private SerialInfo mapToSerialInfoFromJpaEntity(SerialInfoJpaEntity serialInfoJpaEntity) {
+        return SerialInfo.init(
+            serialInfoJpaEntity.getType().getDescription(),
+            serialInfoJpaEntity.getInfo());
     }
 
-    private SerialInfo fromJpaEntity(SerialInfoJpaEntity serialInfoJpaEntity) {
-        return SerialInfo.init(serialInfoJpaEntity.getType().getDescription(), serialInfoJpaEntity.getInfo());
+    private Tag mapToTagDomain(final TagJpaEntity tagJpaEntity) {
+        return new Tag(tagJpaEntity.getName());
     }
 
     private TagJpaEntity mapToTagEntity(Tag tag) {

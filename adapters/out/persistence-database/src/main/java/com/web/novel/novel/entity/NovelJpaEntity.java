@@ -114,7 +114,10 @@ public class NovelJpaEntity extends BaseEntity {
     }
 
     public void addTagEntities(List<TagJpaEntity> tagJpaEntities) {
-        for(var tag : tagJpaEntities) tag.setNovelJpaEntity(this);
+        for(var tag : tagJpaEntities) {
+            tag.setNovelJpaEntity(this);
+            tags.add(tag);
+        }
     }
 
     public NovelJpaEntity delete() {

@@ -1,4 +1,4 @@
-package com.web.novel.novel.viewhistory;
+package com.web.novel.novel.viewhistory.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
