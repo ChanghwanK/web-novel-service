@@ -30,9 +30,7 @@ public class SerialInfoJpaEntity {
 
     protected SerialInfoJpaEntity() {}
 
-    public SerialInfoJpaEntity(
-            final String info,
-            final Type type) {
+    public SerialInfoJpaEntity(final String info, final Type type) {
 
         if(ObjectUtils.isEmpty(info))
             throw new InvalidParamException();

@@ -2,8 +2,9 @@ package com.web.novel.novel.chapter.service;
 
 import com.web.novel.novel.chapter.port.in.ChapterDetailQueryUseCase;
 import com.web.novel.novel.chapter.port.out.ChapterLoadPort;
+import com.web.novel.novel.port.out.AwsSQSViewCountUpMessageSendPort;
 import com.web.novel.novel.port.out.NovelExistsCheckPort;
-import com.web.novel.novel.port.out.ViewHistorySavePort;
+import com.web.novel.novel.vo.ViewCountUpMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ChapterDetailQueryService implements ChapterDetailQueryUseCase {
 
-    private final ViewHistorySavePort viewHistorySavePort;
+    private final AwsSQSViewCountUpMessageSendPort sqsViewCountUpMessageSendPort;
     private final NovelExistsCheckPort novelExistsCheckPort;
     private final ChapterLoadPort chapterLoadPort;
 
     public ChapterDetailQueryService(
-            final ViewHistorySavePort viewHistorySavePort,
+            final AwsSQSViewCountUpMessageSendPort sqsViewCountUpMessageSendPort,
             final NovelExistsCheckPort novelExistsCheckPort,
             final ChapterLoadPort chapterLoadPort) {
-        this.viewHistorySavePort = viewHistorySavePort;
+        this.sqsViewCountUpMessageSendPort = sqsViewCountUpMessageSendPort;
         this.novelExistsCheckPort = novelExistsCheckPort;
         this.chapterLoadPort = chapterLoadPort;
     }
@@ -31,7 +32,7 @@ public class ChapterDetailQueryService implements ChapterDetailQueryUseCase {
 
         var chapter = chapterLoadPort.getByChapterId(query.getChapterId().getValue());
 
-        viewHistorySavePort.up( query.getMemberId(), query.getNovelId());
+        sqsViewCountUpMessageSendPort.sendViewCountUpMessageToSQS(new ViewCountUpMessage(novelId));
         return new Result(chapter);
     }
 }

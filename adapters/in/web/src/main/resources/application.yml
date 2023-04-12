@@ -5,4 +5,4 @@ spring:
     include:
       - persistence-database
       - persistence-redis
-
+      - aws
