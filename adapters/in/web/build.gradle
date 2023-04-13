@@ -2,7 +2,6 @@ dependencies {
     implementation project(':common')
     implementation project(':adapters:out:persistence-database')
     implementation project(':adapters:out:persistence-in-memory')
-    implementation project(':adapters:out:external')
     implementation project(':domain')
     implementation project(':application')
 

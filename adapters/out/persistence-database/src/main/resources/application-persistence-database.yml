@@ -14,13 +14,13 @@ spring:
       connection-test-query: SELECT 1
   jpa:
     database: mysql
-    show-sql: true
+    show-sql: false
     generate-ddl: true
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
 
 #logging:
 #  level:

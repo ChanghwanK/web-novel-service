@@ -6,12 +6,11 @@ import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.Novel;
 import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.NovelMetaInfo;
-import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
 import com.web.novel.novel.entity.GenreJpaEntity;
 import com.web.novel.novel.entity.NovelJpaEntity;
-import com.web.novel.novel.entity.SerialInfoJpaEntity;
+import com.web.novel.novel.entity.SerialInfo;
 import com.web.novel.novel.entity.TagJpaEntity;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class NovelMapper {
             .map(this::mapToTagEntity)
             .collect(Collectors.toList());
 
-        var serialInfoJpaEntity = SerialInfoJpaEntity.init(novel.getSerialInfo());
+        var serialInfoJpaEntity = SerialInfo.init(novel.getSerialInfo());
         var initNovelJpaEntity = initNovelJpaEntity(novel, authorNickName, serialInfoJpaEntity, genreId);
         initNovelJpaEntity.addTagEntities(tagJpaEntities);
 
@@ -53,8 +52,9 @@ public class NovelMapper {
         return novel;
     }
 
-    private SerialInfo mapToSerialInfoFromJpaEntity(SerialInfoJpaEntity serialInfoJpaEntity) {
-        return SerialInfo.init(
+    private com.web.novel.novel.SerialInfo mapToSerialInfoFromJpaEntity(
+        SerialInfo serialInfoJpaEntity) {
+        return com.web.novel.novel.SerialInfo.init(
             serialInfoJpaEntity.getType().getDescription(),
             serialInfoJpaEntity.getInfo());
     }
@@ -70,7 +70,7 @@ public class NovelMapper {
     private NovelJpaEntity initNovelJpaEntity(
             final Novel novel,
             final String authorNickName,
-            final SerialInfoJpaEntity serialInfoJpaEntity,
+            final SerialInfo serialInfoJpaEntity,
             final Long genreId) {
 
         return new NovelJpaEntity(

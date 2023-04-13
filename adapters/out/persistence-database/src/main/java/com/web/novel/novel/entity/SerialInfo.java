@@ -1,7 +1,6 @@
 package com.web.novel.novel.entity;
 
 import com.web.novel.exception.InvalidParamException;
-import com.web.novel.novel.SerialInfo;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -12,7 +11,7 @@ import org.springframework.util.ObjectUtils;
 
 @Getter
 @Embeddable
-public class SerialInfoJpaEntity {
+public class SerialInfo {
 
     @Column(name = "info", nullable = false)
     private String info;
@@ -28,9 +27,9 @@ public class SerialInfoJpaEntity {
         private final String description;
     }
 
-    protected SerialInfoJpaEntity() {}
+    protected SerialInfo() {}
 
-    public SerialInfoJpaEntity(final String info, final Type type) {
+    public SerialInfo(final String info, final Type type) {
 
         if(ObjectUtils.isEmpty(info))
             throw new InvalidParamException();
@@ -42,18 +41,18 @@ public class SerialInfoJpaEntity {
         this.type = type;
     }
 
-    public static SerialInfoJpaEntity init(SerialInfo serialInfo) {
+    public static SerialInfo init(com.web.novel.novel.SerialInfo serialInfo) {
         if(serialInfo.getType().name().equals(Type.MONTHLY.description)) {
             return initMonthlyType(serialInfo);
         }
         return initWeeklyType(serialInfo);
     }
 
-    private static SerialInfoJpaEntity initWeeklyType(SerialInfo serialInfo) {
-        return new SerialInfoJpaEntity(serialInfo.getDay(), Type.WEEKLY);
+    private static SerialInfo initWeeklyType(com.web.novel.novel.SerialInfo serialInfo) {
+        return new SerialInfo(serialInfo.getDay(), Type.WEEKLY);
     }
 
-    private static SerialInfoJpaEntity initMonthlyType(SerialInfo serialInfo) {
-        return new SerialInfoJpaEntity(serialInfo.getDate(), Type.MONTHLY);
+    private static SerialInfo initMonthlyType(com.web.novel.novel.SerialInfo serialInfo) {
+        return new SerialInfo(serialInfo.getDate(), Type.MONTHLY);
     }
 }

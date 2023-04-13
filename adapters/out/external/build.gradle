@@ -1,6 +1,0 @@
-dependencies {
-    implementation project(":application")
-    // aws sqs
-    implementation platform('software.amazon.awssdk:bom:2.15.0')
-    implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.1.RELEASE'
-}

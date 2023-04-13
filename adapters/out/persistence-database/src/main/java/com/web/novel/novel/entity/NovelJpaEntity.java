@@ -46,12 +46,15 @@ public class NovelJpaEntity extends BaseEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String synopsis;
 
+    @Column(name = "view_count")
+    private Integer viewCount;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private Status status;
 
     @Embedded
-    private SerialInfoJpaEntity serialInfoJpaEntity;
+    private SerialInfo serialInfoJpaEntity;
 
     @Column(name = "genre_id", nullable = false)
     private Long genreId;
@@ -72,7 +75,7 @@ public class NovelJpaEntity extends BaseEntity {
             final String title,
             final String coverImageUrl,
             final String authorNickName,
-            final SerialInfoJpaEntity serialInfoJpaEntity,
+            final SerialInfo serialInfoJpaEntity,
             final String synopsis,
             final Long genreId,
             final Long memberId) {
@@ -83,6 +86,7 @@ public class NovelJpaEntity extends BaseEntity {
         this.coverImageUrl = coverImageUrl;
         this.authorNickName = authorNickName;
         this.serialInfoJpaEntity = serialInfoJpaEntity;
+        this.viewCount = 0;
         this.status = Status.OPEN;
         this.synopsis = synopsis;
         this.genreId = genreId;
