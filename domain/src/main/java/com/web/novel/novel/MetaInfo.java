@@ -8,7 +8,7 @@ import lombok.Value;
  * 2.
  */
 @Value
-public class NovelMetaInfo {
+public class MetaInfo {
     String title;
     String coverImageUrl;
 }

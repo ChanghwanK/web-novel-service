@@ -28,7 +28,8 @@ public class NovelRegisterService implements NovelRegisterUseCase {
             Genre.init(command.getGenreId()),
             command.getSerialInfo(),
             synopsis,
-            AuthorInfo.init(command.getAuthorId()));
+            AuthorInfo.init(command.getAuthorId()),
+            command.getPriceInfo());
 
         initNovel.addTags(command.getTags());
 

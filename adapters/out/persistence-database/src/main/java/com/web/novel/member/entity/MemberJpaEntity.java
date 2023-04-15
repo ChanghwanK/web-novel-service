@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -32,9 +31,11 @@ public class MemberJpaEntity extends BaseEntity {
     @Column(name = "nick_name", nullable = false)
     private String nickName;
 
+    @Column(name = "cache", nullable = false)
+    private int cache;
+
     protected MemberJpaEntity() {}
 
-    @Builder
     public MemberJpaEntity(Long id, String email, String nickName) {
         this.id = id;
         this.email = email;

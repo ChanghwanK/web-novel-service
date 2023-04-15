@@ -56,6 +56,9 @@ public class NovelJpaEntity extends BaseEntity {
     @Embedded
     private SerialInfo serialInfoJpaEntity;
 
+    @Embedded
+    private PriceInfoEntity priceInfo;
+
     @Column(name = "genre_id", nullable = false)
     private Long genreId;
 
@@ -77,6 +80,7 @@ public class NovelJpaEntity extends BaseEntity {
             final String authorNickName,
             final SerialInfo serialInfoJpaEntity,
             final String synopsis,
+            final PriceInfoEntity priceInfo,
             final Long genreId,
             final Long memberId) {
 
@@ -88,6 +92,7 @@ public class NovelJpaEntity extends BaseEntity {
         this.serialInfoJpaEntity = serialInfoJpaEntity;
         this.viewCount = 0;
         this.status = Status.OPEN;
+        this.priceInfo = priceInfo;
         this.synopsis = synopsis;
         this.genreId = genreId;
         this.memberId = memberId;

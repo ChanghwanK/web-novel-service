@@ -3,7 +3,8 @@ package com.web.novel.novel.api.mapper;
 import com.web.novel.novel.AuthorInfo.AuthorId;
 import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.Novel.NovelId;
-import com.web.novel.novel.NovelMetaInfo;
+import com.web.novel.novel.MetaInfo;
+import com.web.novel.novel.PriceInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
@@ -23,12 +24,25 @@ import org.springframework.stereotype.Component;
 public class NovelApiMapper {
 
     public NovelRegisterUseCase.Command mapToRegisterCommand(final NovelRegisterRequestDto dto) {
+        var priceInfoRequest = dto.getPriceInfo();
+        var tags = dto.getTags().stream()
+            .map(this::mapToTag)
+            .collect(Collectors.toList());
+        /**
+         * 생성 분리 고민
+         * - 특정 조건에 따라 Enum 타입이 달라져야함
+         * - 무분별하게 If 조건이 퍼지는 것이 별로임
+         * - 한 곳에서 정리되면 좋을 것 같음  <- 유지보수성 ++
+         * 결론 (팩토리 패선이 좋은 이유)
+         * - 객체 생성 책임을 지는 메서드를 만들고 사용하자
+         */
         return new NovelRegisterUseCase.Command(
-            new NovelMetaInfo(dto.getTitle(), dto.getCoverImageUrl()),
-            SerialInfo.init(dto.getSerialInfo().getType(), dto.getSerialInfo().getInfo()),
+            new MetaInfo(dto.getTitle(), dto.getCoverImageUrl()),
+            PriceInfo.create(priceInfoRequest.getPolicy(), priceInfoRequest.getPrice()),
+            SerialInfo.create(dto.getSerialInfo().getType(), dto.getSerialInfo().getInfo()),
             new GenreId(dto.getGenreId()),
             new Synopsis(dto.getSynopsis()),
-            dto.getTags().stream().map(this::mapToTag).collect(Collectors.toList()),
+            tags,
             new AuthorId(dto.getAuthorId()));
     }
 

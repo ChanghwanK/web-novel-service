@@ -38,7 +38,8 @@ public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDelet
         var memberJpaEntity = memberRepository.findById(authorId)
             .orElseThrow(() -> new MemberNotFoundException(authorId));
 
-        novelRepository.save(novelMapper.mapToJpaEntity(novel, memberJpaEntity.getNickName(), genreJpaEntity.getId()));
+        var data = novelMapper.mapToJpaEntity(novel, memberJpaEntity.getNickName(), genreJpaEntity.getId());
+        novelRepository.save(data);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDelet
         var genreJpaEntity = genreRepository.findById(novelJpaEntity.getGenreId())
             .orElseThrow(InvalidParamException::new);
 
-        return novelMapper.mapToDomainWithGenre(novelJpaEntity, genreJpaEntity);
+        return novelMapper.mapToDomain(novelJpaEntity, genreJpaEntity);
     }
 
     @Override

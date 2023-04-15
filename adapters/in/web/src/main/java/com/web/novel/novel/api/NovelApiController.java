@@ -42,7 +42,10 @@ public class NovelApiController {
     @PostMapping("/api/v1/novel")
     public CommonResponse<Void> registerNovel(
             @RequestBody @Valid NovelRegisterRequestDto dto) {
-        novelRegisterUseCase.command(novelApiMapper.mapToRegisterCommand(dto));
+
+        var command = novelApiMapper.mapToRegisterCommand(dto);
+        novelRegisterUseCase.command(command);
+
         return CommonResponse.SUCCESS_DEFAULT;
     }
 
