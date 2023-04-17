@@ -4,7 +4,7 @@ import com.web.novel.novel.AuthorInfo.AuthorId;
 import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.MetaInfo;
-import com.web.novel.novel.PriceInfo;
+import com.web.novel.novel.ChapterPriceInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
@@ -38,7 +38,7 @@ public class NovelApiMapper {
          */
         return new NovelRegisterUseCase.Command(
             new MetaInfo(dto.getTitle(), dto.getCoverImageUrl()),
-            PriceInfo.create(priceInfoRequest.getPolicy(), priceInfoRequest.getPrice()),
+            ChapterPriceInfo.create(priceInfoRequest.getPolicy(), priceInfoRequest.getPrice()),
             SerialInfo.create(dto.getSerialInfo().getType(), dto.getSerialInfo().getInfo()),
             new GenreId(dto.getGenreId()),
             new Synopsis(dto.getSynopsis()),

@@ -6,7 +6,7 @@ import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.Novel;
 import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.MetaInfo;
-import com.web.novel.novel.PriceInfo;
+import com.web.novel.novel.ChapterPriceInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
 import com.web.novel.novel.entity.GenreJpaEntity;
@@ -45,7 +45,7 @@ public class NovelMapper {
             mapToSerialInfoFromJpaEntity(novelJpaEntity.getSerialInfoJpaEntity()),
             new Synopsis(novelJpaEntity.getSynopsis()),
             new AuthorInfo(novelJpaEntity.getAuthorNickName()),
-            PriceInfo.create(
+            ChapterPriceInfo.create(
                 novelJpaEntity.getPriceInfo().getPolicy(), novelJpaEntity.getPriceInfo().getPrice()));
 
         var tags = novelJpaEntity.getTags().stream()
@@ -77,7 +77,7 @@ public class NovelMapper {
             final SerialInfo serialInfoJpaEntity,
             final Long genreId) {
 
-        var priceInfo = novel.getPriceInfo();
+        var priceInfo = novel.getChapterPriceInfo();
 
         return new NovelJpaEntity(
                 novel.getMetaInfo().getTitle(),

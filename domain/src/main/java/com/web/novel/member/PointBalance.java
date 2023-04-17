@@ -1,5 +1,6 @@
 package com.web.novel.member;
 
+import com.web.novel.exception.PointLackException;
 import lombok.Value;
 
 @Value
@@ -8,7 +9,15 @@ public class PointBalance {
 
     int value;
 
-    public PointBalance charge(Integer value) {
+    public PointBalance charge(final Integer value) {
         return new PointBalance(this.value + value);
+    }
+
+    public PointBalance purchase(final Integer price) {
+        if(value < price)
+            throw new PointLackException(value);
+
+
+        return new PointBalance(value - price);
     }
 }

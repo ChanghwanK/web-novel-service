@@ -9,6 +9,8 @@ import com.web.novel.novel.api.chapter.api.mapper.ChapterApiMapper;
 import com.web.novel.novel.chapter.Chapter.ChapterId;
 import com.web.novel.novel.chapter.port.in.ChapterDetailQueryUseCase;
 import com.web.novel.novel.chapter.port.in.ChapterDetailQueryUseCase.Query;
+import com.web.novel.novel.chapter.port.in.ChapterPurchaseUseCase;
+import com.web.novel.novel.chapter.port.in.ChapterPurchaseUseCase.Command;
 import com.web.novel.novel.chapter.port.in.ChapterRegisterUseCase;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,23 +26,38 @@ public class ChapterApiController {
     private final ChapterApiMapper chapterApiMapper;
     private final ChapterRegisterUseCase chapterRegisterUseCase;
     private final ChapterDetailQueryUseCase chapterDetailQueryUseCase;
+    private final ChapterPurchaseUseCase chapterPurchaseUseCase;
 
     public ChapterApiController(
             final ChapterApiMapper chapterApiMapper,
             final ChapterRegisterUseCase chapterRegisterUseCase,
-            final ChapterDetailQueryUseCase chapterDetailQueryUseCase) {
+            final ChapterDetailQueryUseCase chapterDetailQueryUseCase,
+            final ChapterPurchaseUseCase chapterPurchaseUseCase) {
         this.chapterApiMapper = chapterApiMapper;
         this.chapterRegisterUseCase = chapterRegisterUseCase;
         this.chapterDetailQueryUseCase = chapterDetailQueryUseCase;
+        this.chapterPurchaseUseCase = chapterPurchaseUseCase;
     }
 
     @PostMapping("/api/v1/novel/{novelId}/chapter")
-    public CommonResponse<Void> registerNewChapter(
+    public void registerNewChapter(
             @PathVariable Long novelId,
             @RequestBody @Valid ChapterRegisterRequestDto dto) {
 
         chapterRegisterUseCase.command(chapterApiMapper.mapToRegisterCommand(novelId, dto));
-        return CommonResponse.SUCCESS_DEFAULT;
+    }
+
+    @PostMapping("/api/v1/novel/{novelId}/chapter/{chapterId}")
+    public void purchaseChapter(
+        @PathVariable Long novelId,
+        @PathVariable Long chapterId,
+        @RequestParam Long memberId) {
+
+        chapterPurchaseUseCase.command(
+            new Command(
+                new MemberId(memberId),
+                new NovelId(novelId),
+                new ChapterId(chapterId)));
     }
 
     @GetMapping("/api/v1/novel/{novelId}/chapter/{chapterId}")

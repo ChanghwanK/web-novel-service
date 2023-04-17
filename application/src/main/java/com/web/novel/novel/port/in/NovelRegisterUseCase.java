@@ -3,7 +3,7 @@ package com.web.novel.novel.port.in;
 import com.web.novel.novel.AuthorInfo.AuthorId;
 import com.web.novel.novel.Genre.GenreId;
 import com.web.novel.novel.MetaInfo;
-import com.web.novel.novel.PriceInfo;
+import com.web.novel.novel.ChapterPriceInfo;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Tag;
 import com.web.novel.novel.Synopsis;
@@ -17,7 +17,7 @@ public interface NovelRegisterUseCase {
     @Value
     class Command {
         MetaInfo novelMetaInfo;
-        PriceInfo priceInfo;
+        ChapterPriceInfo priceInfo;
         SerialInfo serialInfo;
         GenreId genreId;
         Synopsis synopsis;

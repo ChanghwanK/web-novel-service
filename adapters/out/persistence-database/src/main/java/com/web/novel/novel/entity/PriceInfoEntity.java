@@ -1,6 +1,6 @@
 package com.web.novel.novel.entity;
 
-import com.web.novel.novel.PriceInfo;
+import com.web.novel.novel.ChapterPriceInfo;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class PriceInfoEntity {
         this.price = price;
     }
 
-    public static PriceInfoEntity valueOf(final PriceInfo priceInfo) {
-        return new PriceInfoEntity(priceInfo.getPolicy().name(), priceInfo.getPrice());
+    public static PriceInfoEntity valueOf(final ChapterPriceInfo priceInfo) {
+        return new PriceInfoEntity(priceInfo.getPolicy().name(), priceInfo.getValue());
     }
 }

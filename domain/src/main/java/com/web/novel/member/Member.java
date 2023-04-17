@@ -9,7 +9,7 @@ public class Member {
     private final MemberId memberId;
     private final Email email;
     private final NickName nickName;
-    private final PointBalance remainPoint;
+    private final PointBalance pointBalance;
 
     /**
      * TODO -> 정팩매로 개선하여 코드 의도를 조금더 들어내기
@@ -22,7 +22,7 @@ public class Member {
         this.memberId = memberId;
         this.email = email;
         this.nickName = nickName;
-        this.remainPoint = pointBalance;
+        this.pointBalance = pointBalance;
     }
 
     public MemberId getMemberId() { return memberId; }
@@ -31,7 +31,7 @@ public class Member {
 
     public NickName getNickName() { return nickName; }
 
-    public PointBalance getRemainPoint() { return remainPoint; }
+    public PointBalance getPointBalance() { return pointBalance; }
 
     public static Member initMemberWithId(
             final MemberId memberId,
@@ -46,7 +46,7 @@ public class Member {
     }
 
     public PointBalance pointCharge(ChargeAmount chargeAmount) {
-        return remainPoint.charge(chargeAmount.getValue());
+        return pointBalance.charge(chargeAmount.getValue());
     }
 
     @Value

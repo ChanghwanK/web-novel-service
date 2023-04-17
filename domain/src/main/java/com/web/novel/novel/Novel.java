@@ -23,7 +23,7 @@ public class Novel {
 
     private final NovelId novelId;
     private final MetaInfo metaInfo;
-    private final PriceInfo priceInfo;
+    private final ChapterPriceInfo chapterPriceInfo;
     private final SerialInfo serialInfo; // 연재 정보
     private final Genre genre;
     private final Synopsis synopsis;
@@ -37,14 +37,14 @@ public class Novel {
             final SerialInfo serialInfo,
             final Synopsis synopsis,
             final AuthorInfo authorInfo,
-            final PriceInfo priceInfo) {
+            final ChapterPriceInfo priceInfo) {
         this.novelId = null;
         this.metaInfo = metaInfo;
         this.genre = genre;
         this.serialInfo = serialInfo;
         this.synopsis = synopsis;
         this.authorInfo = authorInfo;
-        this.priceInfo = priceInfo;
+        this.chapterPriceInfo = priceInfo;
     }
 
     public Novel(
@@ -54,14 +54,14 @@ public class Novel {
             final SerialInfo serialInfo,
             final Synopsis synopsis,
             final AuthorInfo authorInfo,
-            final PriceInfo priceInfo) {
+            final ChapterPriceInfo priceInfo) {
         this.novelId = novelId;
         this.metaInfo = metaInfo;
         this.genre = genre;
         this.synopsis = synopsis;
         this.serialInfo =  serialInfo;
         this.authorInfo = authorInfo;
-        this.priceInfo = priceInfo;
+        this.chapterPriceInfo = priceInfo;
     }
 
     public MetaInfo getMetaInfo() { return metaInfo; }
@@ -110,7 +110,7 @@ public class Novel {
             final SerialInfo serialInfo,
             final Synopsis synopsis,
             final AuthorInfo authorInfo,
-            final PriceInfo priceInfo) {
+            final ChapterPriceInfo priceInfo) {
         return new Novel(novelMetaInfo, genre, serialInfo, synopsis, authorInfo, priceInfo);
     }
 
@@ -121,7 +121,7 @@ public class Novel {
             final SerialInfo serialInfo,
             final Synopsis synopsis,
             final AuthorInfo authorInfo,
-            final PriceInfo priceInfo) {
+            final ChapterPriceInfo priceInfo) {
         return new Novel(novelId, novelMetaInfo, genre, serialInfo, synopsis, authorInfo, priceInfo);
     }
 
@@ -129,8 +129,8 @@ public class Novel {
         return authorInfo;
     }
 
-    public PriceInfo getPriceInfo() {
-        return priceInfo;
+    public ChapterPriceInfo getChapterPriceInfo() {
+        return chapterPriceInfo;
     }
 
     @Value
