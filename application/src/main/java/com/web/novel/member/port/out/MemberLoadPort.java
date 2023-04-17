@@ -10,4 +10,5 @@ public interface MemberLoadPort {
     void checkDuplicatedNickName(NickName nickName);
     void existsAuthorInfo(AuthorInfo email);
     Member getByEmail(String authorEmail);
+    Member getById(Long memberId);
 }

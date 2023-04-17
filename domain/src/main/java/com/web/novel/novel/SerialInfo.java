@@ -15,7 +15,7 @@ public class SerialInfo {
         this.type = type;
     }
 
-    public static SerialInfo init(String type, String value) {
+    public static SerialInfo create(String type, String value) {
         if(type.equals(Type.WEEKLY.name()))
             return initWeeklyType(value);
 

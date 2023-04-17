@@ -46,12 +46,18 @@ public class NovelJpaEntity extends BaseEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String synopsis;
 
+    @Column(name = "view_count")
+    private Integer viewCount;
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private Status status;
 
     @Embedded
-    private SerialInfoJpaEntity serialInfoJpaEntity;
+    private SerialInfo serialInfoJpaEntity;
+
+    @Embedded
+    private PriceInfoEntity priceInfo;
 
     @Column(name = "genre_id", nullable = false)
     private Long genreId;
@@ -72,8 +78,9 @@ public class NovelJpaEntity extends BaseEntity {
             final String title,
             final String coverImageUrl,
             final String authorNickName,
-            final SerialInfoJpaEntity serialInfoJpaEntity,
+            final SerialInfo serialInfoJpaEntity,
             final String synopsis,
+            final PriceInfoEntity priceInfo,
             final Long genreId,
             final Long memberId) {
 
@@ -83,7 +90,9 @@ public class NovelJpaEntity extends BaseEntity {
         this.coverImageUrl = coverImageUrl;
         this.authorNickName = authorNickName;
         this.serialInfoJpaEntity = serialInfoJpaEntity;
+        this.viewCount = 0;
         this.status = Status.OPEN;
+        this.priceInfo = priceInfo;
         this.synopsis = synopsis;
         this.genreId = genreId;
         this.memberId = memberId;
@@ -114,7 +123,10 @@ public class NovelJpaEntity extends BaseEntity {
     }
 
     public void addTagEntities(List<TagJpaEntity> tagJpaEntities) {
-        for(var tag : tagJpaEntities) tag.setNovelJpaEntity(this);
+        for(var tag : tagJpaEntities) {
+            tag.setNovelJpaEntity(this);
+            tags.add(tag);
+        }
     }
 
     public NovelJpaEntity delete() {

@@ -2,6 +2,7 @@ package com.web.novel.novel.chapter;
 
 import com.web.novel.annotations.PersistenceAdapter;
 import com.web.novel.exception.CanNotRegisterFavoriteNovelException;
+import com.web.novel.exception.InvalidParamException;
 import com.web.novel.exception.NovelNotFoundException;
 import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.chapter.entity.ChapterJpaEntity;
@@ -10,6 +11,9 @@ import com.web.novel.novel.chapter.port.out.ChapterLoadPort;
 import com.web.novel.novel.chapter.port.out.ChapterRegisterPort;
 import com.web.novel.novel.chapter.repository.ChapterRepository;
 import com.web.novel.novel.repository.NovelRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.data.domain.PageRequest;
 
 @PersistenceAdapter
 public class ChapterPersistenceAdapter implements ChapterRegisterPort, ChapterLoadPort {
@@ -47,5 +51,21 @@ public class ChapterPersistenceAdapter implements ChapterRegisterPort, ChapterLo
         return chapterRepository.findChapterOrderByIdLimitOne()
             .map(chapterMapper::mapToDomain)
             .orElseThrow(CanNotRegisterFavoriteNovelException::new);
+    }
+
+    @Override
+    public List<Chapter> getChapterOrderByUploadedAtDESCWithPage(NovelId novelId, Integer page) {
+        var pageRequest = PageRequest.of(page, 10);
+        return chapterRepository.findChapterByNovelIdOrderByOrderingDESC(novelId.getValue(), pageRequest)
+            .stream()
+            .map(chapterMapper::mapToDomain)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public Chapter getByChapterId(Long chapterId) {
+        var chapterJpaEntity = chapterRepository.findById(chapterId)
+            .orElseThrow(InvalidParamException::new);
+        return chapterMapper.mapToDomain(chapterJpaEntity);
     }
 }

@@ -24,6 +24,10 @@ public class ChapterRegisterService implements ChapterRegisterUseCase {
     @Override
     public void command(Command command) {
         novelChapterRegisterPort.register(
-            new Chapter(command.getTitle(), command.getContent(), command.getAuthorTalk(), command.getNovelId()));
+            new Chapter(
+                command.getTitle(),
+                command.getContent(),
+                command.getAuthorTalk(),
+                command.getNovelId()));
     }
 }

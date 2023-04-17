@@ -21,6 +21,10 @@ public class AuthorInfo {
         return new AuthorInfo(member.getNickName().getValue(), member.getEmail().getValue());
     }
 
+    public AuthorInfo(final String authorNickName) {
+        this.authorNickName = authorNickName;
+    }
+
     private AuthorInfo(final AuthorId authorId) {
         this.authorId = authorId;
     }
@@ -30,7 +34,7 @@ public class AuthorInfo {
         this.email = email;
     }
 
-    private AuthorInfo(AuthorId authorId, String authorNickName, String email) {
+    public AuthorInfo(AuthorId authorId, String authorNickName, String email) {
         this.authorId = authorId;
         this.authorNickName = authorNickName;
         this.email = email;

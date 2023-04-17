@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -17,7 +16,7 @@ import lombok.Getter;
     name = "members",
     indexes = {
         @Index(name = "uq_member_email", columnList = "email", unique = true),
-        @Index(name = "uq_member_email", columnList = "nick_name", unique = true)
+        @Index(name = "uq_member_nick_name", columnList = "nick_name", unique = true)
     }
 )
 public class MemberJpaEntity extends BaseEntity {
@@ -32,12 +31,19 @@ public class MemberJpaEntity extends BaseEntity {
     @Column(name = "nick_name", nullable = false)
     private String nickName;
 
+    @Column(name = "point_balance", nullable = false)
+    private int pointBalance;
+
     protected MemberJpaEntity() {}
 
-    @Builder
     public MemberJpaEntity(Long id, String email, String nickName) {
         this.id = id;
         this.email = email;
         this.nickName = nickName;
+    }
+
+    public MemberJpaEntity updateBalance(final Integer balance) {
+        this.pointBalance = balance;
+        return this;
     }
 }

@@ -5,6 +5,7 @@ import com.web.novel.member.Email;
 import com.web.novel.member.Member;
 import com.web.novel.member.Member.MemberId;
 import com.web.novel.member.NickName;
+import com.web.novel.member.PointBalance;
 import com.web.novel.member.entity.MemberJpaEntity;
 
 @Mapper
@@ -21,6 +22,7 @@ public class MemberMapper {
         return Member.initMemberWithId(
             new MemberId(memberJapEntity.getId()),
             new Email(memberJapEntity.getEmail()),
-            new NickName(memberJapEntity.getNickName()));
+            new NickName(memberJapEntity.getNickName()),
+            new PointBalance(memberJapEntity.getPointBalance()));
     }
 }

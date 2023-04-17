@@ -22,7 +22,8 @@ public class Novel {
     private static final int MAX_TAG_SIZE = 10;
 
     private final NovelId novelId;
-    private final NovelMetaInfo metaInfo;
+    private final MetaInfo metaInfo;
+    private final ChapterPriceInfo chapterPriceInfo;
     private final SerialInfo serialInfo; // 연재 정보
     private final Genre genre;
     private final Synopsis synopsis;
@@ -31,35 +32,39 @@ public class Novel {
     private final List<Chapter> chapters = new ArrayList<>();
 
     public Novel(
-            final NovelMetaInfo metaInfo,
+            final MetaInfo metaInfo,
             final Genre genre,
             final SerialInfo serialInfo,
             final Synopsis synopsis,
-            final AuthorInfo authorInfo) {
+            final AuthorInfo authorInfo,
+            final ChapterPriceInfo priceInfo) {
         this.novelId = null;
         this.metaInfo = metaInfo;
         this.genre = genre;
         this.serialInfo = serialInfo;
         this.synopsis = synopsis;
         this.authorInfo = authorInfo;
+        this.chapterPriceInfo = priceInfo;
     }
 
     public Novel(
             final NovelId novelId,
-            final NovelMetaInfo metaInfo,
+            final MetaInfo metaInfo,
             final Genre genre,
             final SerialInfo serialInfo,
             final Synopsis synopsis,
-            final AuthorInfo authorInfo) {
+            final AuthorInfo authorInfo,
+            final ChapterPriceInfo priceInfo) {
         this.novelId = novelId;
         this.metaInfo = metaInfo;
         this.genre = genre;
         this.synopsis = synopsis;
         this.serialInfo =  serialInfo;
         this.authorInfo = authorInfo;
+        this.chapterPriceInfo = priceInfo;
     }
 
-    public NovelMetaInfo getMetaInfo() { return metaInfo; }
+    public MetaInfo getMetaInfo() { return metaInfo; }
 
     public Genre getGenre() { return genre; }
 
@@ -69,14 +74,6 @@ public class Novel {
 
     public NovelId getNovelId() {
         return novelId;
-    }
-
-    public void addChapter(Chapter chapter) {
-        this.chapters.add(chapter);
-    }
-
-    public void addAllChapter(List<Chapter> chapters) {
-        this.chapters.addAll(chapters);
     }
 
     public SerialInfo getSerialInfo() {
@@ -108,26 +105,32 @@ public class Novel {
     }
 
     public static Novel initNovel(
-            final NovelMetaInfo novelMetaInfo,
+            final MetaInfo novelMetaInfo,
             final Genre genre,
             final SerialInfo serialInfo,
             final Synopsis synopsis,
-            final AuthorInfo authorInfo) {
-        return new Novel(novelMetaInfo, genre, serialInfo, synopsis, authorInfo);
+            final AuthorInfo authorInfo,
+            final ChapterPriceInfo priceInfo) {
+        return new Novel(novelMetaInfo, genre, serialInfo, synopsis, authorInfo, priceInfo);
     }
 
     public static Novel initNovelWithId(
             final NovelId novelId,
-            final NovelMetaInfo novelMetaInfo,
+            final MetaInfo novelMetaInfo,
             final Genre genre,
             final SerialInfo serialInfo,
             final Synopsis synopsis,
-            final AuthorInfo authorInfo) {
-        return new Novel(novelId, novelMetaInfo, genre, serialInfo, synopsis, authorInfo);
+            final AuthorInfo authorInfo,
+            final ChapterPriceInfo priceInfo) {
+        return new Novel(novelId, novelMetaInfo, genre, serialInfo, synopsis, authorInfo, priceInfo);
     }
 
     public AuthorInfo getAuthorInfo() {
         return authorInfo;
+    }
+
+    public ChapterPriceInfo getChapterPriceInfo() {
+        return chapterPriceInfo;
     }
 
     @Value

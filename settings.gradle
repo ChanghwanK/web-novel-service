@@ -6,4 +6,6 @@ include 'adapters:in:web'
 include 'common'
 include 'adapters:out:persistence-in-memory'
 findProject(':adapters:out:persistence-in-memory')?.name = 'persistence-in-memory'
+include 'adapters:out:external'
+findProject(':adapters:out:external')?.name = 'external'
 

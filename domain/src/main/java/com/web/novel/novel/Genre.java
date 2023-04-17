@@ -10,7 +10,7 @@ public class Genre {
         this.genreId = genreId;
     }
 
-    private Genre(GenreId genreId, String name) {
+    public Genre(GenreId genreId, String name) {
         this.genreId = genreId;
         this.name = name;
     }

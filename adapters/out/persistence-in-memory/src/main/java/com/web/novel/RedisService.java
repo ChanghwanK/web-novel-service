@@ -1,6 +1,7 @@
 package com.web.novel;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Duration;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -36,6 +37,24 @@ public class RedisService {
         try {
             String serializedValue = objectMapper.writeValueAsString(value);
             redisTemplate.opsForValue().set(redisKey(key), serializedValue);
+        } catch (Exception e) {
+            log.error("", e);
+        }
+    }
+
+    public void set(final String key, Object value, Duration duration) {
+        try {
+            String serializedValue = objectMapper.writeValueAsString(value);
+            redisTemplate.opsForValue().set(redisKey(key), serializedValue, duration);
+        } catch (Exception e) {
+            log.error("", e);
+        }
+    }
+
+    public void setIfAbsent(final String key, Object value, Duration duration) {
+        try {
+            String serializedValue = objectMapper.writeValueAsString(value);
+            redisTemplate.opsForValue().setIfAbsent(redisKey(key), serializedValue, duration);
         } catch (Exception e) {
             log.error("", e);
         }
