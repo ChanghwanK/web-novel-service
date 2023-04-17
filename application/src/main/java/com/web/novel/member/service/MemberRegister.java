@@ -5,7 +5,7 @@ import com.web.novel.member.Member;
 import com.web.novel.member.NickName;
 import com.web.novel.member.port.in.MemberRegisterUseCase;
 import com.web.novel.member.port.out.MemberLoadPort;
-import com.web.novel.member.port.out.MemberPersistencePort;
+import com.web.novel.member.port.out.MemberSavePort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MemberRegister implements MemberRegisterUseCase {
 
-    private final MemberPersistencePort memberPersistencePort;
+    private final MemberSavePort memberPersistencePort;
     private final MemberLoadPort memberLoadPort;
 
     public MemberRegister(
-            final MemberPersistencePort memberPersistencePort,
+            final MemberSavePort memberPersistencePort,
             final MemberLoadPort memberLoadPort) {
         this.memberPersistencePort = memberPersistencePort;
         this.memberLoadPort = memberLoadPort;
