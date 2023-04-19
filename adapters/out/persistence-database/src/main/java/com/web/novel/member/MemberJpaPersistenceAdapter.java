@@ -26,12 +26,10 @@ public class MemberJpaPersistenceAdapter implements MemberSavePort, MemberLoadPo
         this.memberMapper = memberMapper;
     }
 
-
     @Override
     public void registerMember(Member member) {
         memberRepository.save(memberMapper.mapToJpaEntity(member));
     }
-
 
     @Override
     public void checkDuplicatedEmail(Email email) {
