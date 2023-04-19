@@ -1,12 +1,12 @@
 package com.web.novel.point.service;
 
+import com.web.novel.aop.annotation.DistributeLock;
 import com.web.novel.member.port.out.MemberLoadPort;
 import com.web.novel.member.port.out.UpdateMemberPointBalancePort;
 import com.web.novel.point.Point;
 import com.web.novel.point.port.in.PointChargeUseCase;
 import com.web.novel.point.port.out.PointCacheCheckPort;
 import com.web.novel.point.port.out.PointSavePort;
-import java.util.concurrent.TimeUnit;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,22 +50,10 @@ public class PointChargeService implements PointChargeUseCase {
         updateMemberPointBalancePort.updateBalance(memberId.getValue(), pointBalance.getValue());
     }
 
+    @DistributeLock(key = LOCK_NAME)
     private void pointSave(final Point initPoint) {
-        var lock = redissonClient.getLock(LOCK_NAME);
-        try {
-            lock.tryLock(3,3, TimeUnit.SECONDS);
-
-            if(! lock.isLocked()) {
-                throw new RuntimeException();
-            }
-
-            pointNumberCachePort.checkDuplication(initPoint.getPointNumber());
-            pointNumberCachePort.setPointNumber(initPoint.getPointNumber());
-            pointSavePort.save(initPoint);
-        } catch(InterruptedException ex) {
-            System.out.println(ex.getMessage());
-        } finally {
-            lock.unlock();
-        }
+        pointNumberCachePort.checkDuplication(initPoint.getPointNumber());
+        pointNumberCachePort.setPointNumber(initPoint.getPointNumber());
+        pointSavePort.save(initPoint);
     }
 }
