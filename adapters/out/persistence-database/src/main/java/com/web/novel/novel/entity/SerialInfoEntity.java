@@ -11,7 +11,7 @@ import org.springframework.util.ObjectUtils;
 
 @Getter
 @Embeddable
-public class SerialInfo {
+public class SerialInfoEntity {
 
     @Column(name = "info", nullable = false)
     private String info;
@@ -27,9 +27,9 @@ public class SerialInfo {
         private final String description;
     }
 
-    protected SerialInfo() {}
+    protected SerialInfoEntity() {}
 
-    public SerialInfo(final String info, final Type type) {
+    public SerialInfoEntity(final String info, final Type type) {
 
         if(ObjectUtils.isEmpty(info))
             throw new InvalidParamException();
@@ -41,18 +41,18 @@ public class SerialInfo {
         this.type = type;
     }
 
-    public static SerialInfo init(com.web.novel.novel.SerialInfo serialInfo) {
+    public static SerialInfoEntity newInstance(com.web.novel.novel.SerialInfo serialInfo) {
         if(serialInfo.getType().name().equals(Type.MONTHLY.description)) {
             return initMonthlyType(serialInfo);
         }
         return initWeeklyType(serialInfo);
     }
 
-    private static SerialInfo initWeeklyType(com.web.novel.novel.SerialInfo serialInfo) {
-        return new SerialInfo(serialInfo.getDay(), Type.WEEKLY);
+    private static SerialInfoEntity initWeeklyType(com.web.novel.novel.SerialInfo serialInfo) {
+        return new SerialInfoEntity(serialInfo.getDay(), Type.WEEKLY);
     }
 
-    private static SerialInfo initMonthlyType(com.web.novel.novel.SerialInfo serialInfo) {
-        return new SerialInfo(serialInfo.getDate(), Type.MONTHLY);
+    private static SerialInfoEntity initMonthlyType(com.web.novel.novel.SerialInfo serialInfo) {
+        return new SerialInfoEntity(serialInfo.getDate(), Type.MONTHLY);
     }
 }

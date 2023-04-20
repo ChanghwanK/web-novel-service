@@ -21,18 +21,17 @@ public class NovelRegisterService implements NovelRegisterUseCase {
     @Override
     public void command(Command command) {
         var synopsis = command.getSynopsis();
-        synopsis.checkWordSize();
 
-        var initNovel = Novel.initNovel(
+        var initNovel = Novel.newInstance(
             command.getNovelMetaInfo(),
-            Genre.init(command.getGenreId()),
+            Genre.newInstance(command.getGenreId()),
             command.getSerialInfo(),
             synopsis,
-            AuthorInfo.init(command.getAuthorId()),
+            AuthorInfo.newInstance(command.getAuthorId()),
             command.getPriceInfo());
 
         initNovel.addTags(command.getTags());
 
-        novelRegisterPort.store(initNovel);
+        novelRegisterPort.register(initNovel);
     }
 }

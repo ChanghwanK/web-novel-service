@@ -7,7 +7,11 @@ import lombok.Value;
 public class Synopsis {
     String value;
 
-    public void checkWordSize() {
+    public Synopsis(final String value) {
+        checkWordSize(value);
+        this.value = value;
+    }
+    private void checkWordSize(final String value) {
         if(value.length() > 2000)
             throw new SynopsisWordSizeOverException(value.length());
     }

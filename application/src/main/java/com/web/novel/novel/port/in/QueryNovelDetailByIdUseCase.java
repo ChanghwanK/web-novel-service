@@ -1,10 +1,9 @@
 package com.web.novel.novel.port.in;
 
-import com.web.novel.member.Member.MemberId;
 import com.web.novel.novel.AuthorInfo;
 import com.web.novel.novel.Genre;
-import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.MetaInfo;
+import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.SerialInfo;
 import com.web.novel.novel.Synopsis;
 import com.web.novel.novel.Tag;
@@ -12,14 +11,13 @@ import com.web.novel.novel.chapter.Chapter;
 import java.util.List;
 import lombok.Value;
 
-public interface NovelQueryUseCase {
+public interface QueryNovelDetailByIdUseCase {
 
-    Result getNovelDetailPageInfo(Query query);
+    Result getNovelDetailById(Query query);
 
     @Value
     class Query {
         NovelId novelId;
-        MemberId memberId;
         Integer page;
     }
     // todo 최근 본 회차 추가하기

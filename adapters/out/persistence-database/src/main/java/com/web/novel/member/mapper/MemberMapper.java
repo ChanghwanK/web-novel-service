@@ -19,7 +19,7 @@ public class MemberMapper {
     }
 
     public Member mapToDomain(MemberJpaEntity memberJapEntity) {
-        return Member.initMemberWithId(
+        return Member.newInstanceWithId(
             new MemberId(memberJapEntity.getId()),
             new Email(memberJapEntity.getEmail()),
             new NickName(memberJapEntity.getNickName()),

@@ -104,7 +104,7 @@ public class Novel {
             throw new TagSizeInvalidException(tageSize);
     }
 
-    public static Novel initNovel(
+    public static Novel newInstance(
             final MetaInfo novelMetaInfo,
             final Genre genre,
             final SerialInfo serialInfo,

@@ -27,7 +27,7 @@ public class Favorite {
         this.novelId = novelId;
     }
 
-    public static Favorite init(MemberId memberId, NovelId novelId) {
+    public static Favorite newInstance(MemberId memberId, NovelId novelId) {
         return new Favorite(memberId, novelId);
     }
 

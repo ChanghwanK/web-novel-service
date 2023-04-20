@@ -15,7 +15,7 @@ import com.web.novel.novel.api.dto.response.NovelPageInfoResponse.ChapterInfo;
 import com.web.novel.novel.chapter.Chapter;
 import com.web.novel.novel.port.in.NovelDeleteUseCase;
 import com.web.novel.novel.port.in.NovelDeleteUseCase.Command;
-import com.web.novel.novel.port.in.NovelQueryUseCase.Result;
+import com.web.novel.novel.port.in.QueryNovelDetailByIdUseCase.Result;
 import com.web.novel.novel.port.in.NovelRegisterUseCase;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;

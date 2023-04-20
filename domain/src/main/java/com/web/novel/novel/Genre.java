@@ -15,7 +15,7 @@ public class Genre {
         this.name = name;
     }
 
-    public static Genre init(final GenreId genreId) {
+    public static Genre newInstance(final GenreId genreId) {
         return new Genre(genreId);
     }
 

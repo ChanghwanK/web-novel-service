@@ -28,7 +28,7 @@ public class NovelJpaPersistenceAdapter implements NovelRegisterPort, NovelDelet
     private final MemberRepository memberRepository;
 
     @Override
-    public void store(final Novel novel) {
+    public void register(final Novel novel) {
         var genreId = novel.getGenre().getGenreId().getValue();
         var authorId = novel.getAuthorInfo().getAuthorId().getValue();
 

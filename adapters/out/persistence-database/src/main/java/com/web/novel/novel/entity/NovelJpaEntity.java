@@ -54,7 +54,7 @@ public class NovelJpaEntity extends BaseEntity {
     private Status status;
 
     @Embedded
-    private SerialInfo serialInfoJpaEntity;
+    private SerialInfoEntity serialInfoJpaEntity;
 
     @Embedded
     private PriceInfoEntity priceInfo;
@@ -78,7 +78,7 @@ public class NovelJpaEntity extends BaseEntity {
             final String title,
             final String coverImageUrl,
             final String authorNickName,
-            final SerialInfo serialInfoJpaEntity,
+            final SerialInfoEntity serialInfoJpaEntity,
             final String synopsis,
             final PriceInfoEntity priceInfo,
             final Long genreId,

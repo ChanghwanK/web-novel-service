@@ -1,21 +1,20 @@
 package com.web.novel.novel.service;
 
-import com.web.novel.member.Member.MemberId;
 import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.chapter.port.out.ChapterLoadPort;
-import com.web.novel.novel.port.in.NovelQueryUseCase;
+import com.web.novel.novel.port.in.QueryNovelDetailByIdUseCase;
 import com.web.novel.novel.port.out.NovelLoadPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Service
-public class NovelQueryService implements NovelQueryUseCase {
+public class NovelQueryDetailByIdService implements QueryNovelDetailByIdUseCase {
 
     private final NovelLoadPort novelLoadPort;
     private final ChapterLoadPort chapterLoadPort;
 
-    public NovelQueryService(
+    public NovelQueryDetailByIdService(
             final NovelLoadPort novelLoadPort,
             final ChapterLoadPort chapterLoadPort) {
         this.novelLoadPort = novelLoadPort;
@@ -23,8 +22,7 @@ public class NovelQueryService implements NovelQueryUseCase {
     }
 
     @Override
-    public Result getNovelDetailPageInfo(final Query query) {
-        final MemberId memberId = query.getMemberId();
+    public Result getNovelDetailById(final Query query) {
         final NovelId novelId = query.getNovelId();
         // 작품 정보
         var novel = novelLoadPort.getById(novelId.getValue());

@@ -43,7 +43,7 @@ public class FavoriteRegisterService implements FavoriteUpsertUseCase {
         Favorite favorite = favoriteLoadPort.getByMemberIdAndNovelId(command.getMemberId(), command.getNovelId());
 
         if(favorite == null)
-            favoriteRegisterPort.register(Favorite.init(command.getMemberId(), command.getNovelId()));
+            favoriteRegisterPort.register(Favorite.newInstance(command.getMemberId(), command.getNovelId()));
         else
             favoriteDeletePort.deleteById(favorite.getFavoriteId());
     }

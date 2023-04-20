@@ -12,7 +12,7 @@ import com.web.novel.novel.Tag;
 import com.web.novel.novel.entity.GenreJpaEntity;
 import com.web.novel.novel.entity.NovelJpaEntity;
 import com.web.novel.novel.entity.PriceInfoEntity;
-import com.web.novel.novel.entity.SerialInfo;
+import com.web.novel.novel.entity.SerialInfoEntity;
 import com.web.novel.novel.entity.TagJpaEntity;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class NovelMapper {
             .map(this::mapToTagEntity)
             .collect(Collectors.toList());
 
-        var serialInfoJpaEntity = SerialInfo.init(novel.getSerialInfo());
+        var serialInfoJpaEntity = SerialInfoEntity.newInstance(novel.getSerialInfo());
         var initNovelJpaEntity = initNovelJpaEntity(novel, authorNickName, serialInfoJpaEntity, genreId);
         initNovelJpaEntity.addTagEntities(tagJpaEntities);
 
@@ -57,7 +57,7 @@ public class NovelMapper {
     }
 
     private com.web.novel.novel.SerialInfo mapToSerialInfoFromJpaEntity(
-        SerialInfo serialInfoJpaEntity) {
+        SerialInfoEntity serialInfoJpaEntity) {
         return com.web.novel.novel.SerialInfo.create(
             serialInfoJpaEntity.getType().getDescription(),
             serialInfoJpaEntity.getInfo());
@@ -74,7 +74,7 @@ public class NovelMapper {
     private NovelJpaEntity initNovelJpaEntity(
             final Novel novel,
             final String authorNickName,
-            final SerialInfo serialInfoJpaEntity,
+            final SerialInfoEntity serialInfoJpaEntity,
             final Long genreId) {
 
         var priceInfo = novel.getChapterPriceInfo();

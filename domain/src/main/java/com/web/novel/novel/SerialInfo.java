@@ -1,9 +1,12 @@
 package com.web.novel.novel;
 
+import lombok.Value;
+
+@Value
 public class SerialInfo {
-    private String day;
-    private String date;
-    private Type type;
+    String day;
+    String date;
+    Type type;
 
     public enum Type {
         WEEKLY, MONTHLY;

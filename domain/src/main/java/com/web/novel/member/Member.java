@@ -33,7 +33,7 @@ public class Member {
 
     public PointBalance getPointBalance() { return pointBalance; }
 
-    public static Member initMemberWithId(
+    public static Member newInstanceWithId(
             final MemberId memberId,
             final Email email,
             final NickName nickName,

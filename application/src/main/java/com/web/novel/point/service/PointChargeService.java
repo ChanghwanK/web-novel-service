@@ -7,7 +7,6 @@ import com.web.novel.point.Point;
 import com.web.novel.point.port.in.PointChargeUseCase;
 import com.web.novel.point.port.out.PointCacheCheckPort;
 import com.web.novel.point.port.out.PointSavePort;
-import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,19 +20,16 @@ public class PointChargeService implements PointChargeUseCase {
     private final PointCacheCheckPort pointNumberCachePort;
     private final UpdateMemberPointBalancePort updateMemberPointBalancePort;
     private final PointSavePort pointSavePort;
-    private final RedissonClient redissonClient;
 
     public PointChargeService(
             final MemberLoadPort memberLoadPort,
             final PointCacheCheckPort pointNumberCachePort,
             final UpdateMemberPointBalancePort updateMemberPointBalancePort,
-            final PointSavePort pointSavePort,
-            final RedissonClient redissonClient) {
+            final PointSavePort pointSavePort) {
         this.memberLoadPort = memberLoadPort;
         this.pointNumberCachePort = pointNumberCachePort;
         this.updateMemberPointBalancePort = updateMemberPointBalancePort;
         this.pointSavePort = pointSavePort;
-        this.redissonClient = redissonClient;
     }
 
     @Override

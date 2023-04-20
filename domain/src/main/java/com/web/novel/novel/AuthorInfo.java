@@ -1,6 +1,5 @@
 package com.web.novel.novel;
 
-import com.web.novel.member.Member;
 import lombok.Value;
 
 public class AuthorInfo {
@@ -13,12 +12,8 @@ public class AuthorInfo {
 
     public String getEmail() { return email; }
 
-    public static AuthorInfo init(AuthorId authorId) {
+    public static AuthorInfo newInstance(AuthorId authorId) {
         return new AuthorInfo(authorId);
-    }
-
-    public static AuthorInfo init(final Member member) {
-        return new AuthorInfo(member.getNickName().getValue(), member.getEmail().getValue());
     }
 
     public AuthorInfo(final String authorNickName) {
@@ -29,12 +24,10 @@ public class AuthorInfo {
         this.authorId = authorId;
     }
 
-    private AuthorInfo(final String authorNickName, final String email) {
-        this.authorNickName = authorNickName;
-        this.email = email;
-    }
-
-    public AuthorInfo(AuthorId authorId, String authorNickName, String email) {
+    public AuthorInfo(
+            final AuthorId authorId,
+            final String authorNickName,
+            final String email) {
         this.authorId = authorId;
         this.authorNickName = authorNickName;
         this.email = email;

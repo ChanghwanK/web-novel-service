@@ -1,14 +1,13 @@
 package com.web.novel.novel.api;
 
 import com.web.novel.config.response.CommonResponse;
-import com.web.novel.member.Member.MemberId;
 import com.web.novel.novel.Novel.NovelId;
 import com.web.novel.novel.api.dto.request.NovelRegisterRequestDto;
 import com.web.novel.novel.api.mapper.NovelApiMapper;
 import com.web.novel.novel.port.in.NovelDeleteUseCase;
-import com.web.novel.novel.port.in.NovelQueryUseCase;
-import com.web.novel.novel.port.in.NovelQueryUseCase.Query;
 import com.web.novel.novel.port.in.NovelRegisterUseCase;
+import com.web.novel.novel.port.in.QueryNovelDetailByIdUseCase;
+import com.web.novel.novel.port.in.QueryNovelDetailByIdUseCase.Query;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,13 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class NovelApiController {
 
     private final NovelRegisterUseCase novelRegisterUseCase;
-    private final NovelQueryUseCase novelQueryUseCase;
+    private final QueryNovelDetailByIdUseCase novelQueryUseCase;
     private final NovelDeleteUseCase novelDeleteUseCase;
     private final NovelApiMapper novelApiMapper;
 
     public NovelApiController(
             final NovelRegisterUseCase novelRegisterUseCase,
-            final NovelQueryUseCase novelQueryUseCase,
+            final QueryNovelDetailByIdUseCase novelQueryUseCase,
             final NovelDeleteUseCase novelDeleteUseCase,
             final NovelApiMapper novelApiMapper) {
         this.novelRegisterUseCase = novelRegisterUseCase;
@@ -54,10 +53,9 @@ public class NovelApiController {
             @PathVariable Long novelId,
             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(name = "memberId") Long memberId) {
-        var res = novelQueryUseCase.getNovelDetailPageInfo(
+        var res = novelQueryUseCase.getNovelDetailById(
             new Query(
                 new NovelId(novelId),
-                new MemberId(memberId),
                 page));
         return CommonResponse.success(novelApiMapper.mapToNovelPageInfoResponse(res));
     }

@@ -55,7 +55,7 @@ class MemberRegisterTests {
     }
 
     @Test
-    void 이미_등록_이메일_경우_등록_실패() {
+    void 이미_등록_이메일_경우_예외발생() {
         doThrow(new DuplicatedEmailException(EMAIL_VALUE_FIXTURE))
             .when(memberLoadPort)
             .checkDuplicatedEmail(any());
@@ -67,7 +67,7 @@ class MemberRegisterTests {
     }
 
     @Test
-    void 이미_등록_닉네임인_경우_등록_실패() {
+    void 이미_등록_닉네임인_경우_예외발생() {
         doThrow(new DuplicatedNickNameException(NICK_NAME_VALUE_FIXTURE))
             .when(memberLoadPort)
             .checkDuplicatedNickName(any());
